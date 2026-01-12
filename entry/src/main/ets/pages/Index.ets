@@ -5,11 +5,11 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Component
 struct DisplayInfoPage {
   @Provide('pageInfos') pageInfos: NavPathStack = new NavPathStack()
-  @State width_info: number = 0;
-  @State height_info: number = 0;
-  @State refresh_rate_info: number = 0;
-  @State orientation_info: string = '-';
-  @State density_info: number = 0;
+  @State widthInfo: number = 0;
+  @State heightInfo: number = 0;
+  @State refreshRateInfo: number = 0;
+  @State orientationInfo: string = '-';
+  @State densityInfo: number = 0;
   @State errorMsg: string = '';
 
   aboutToAppear() {
@@ -20,29 +20,29 @@ struct DisplayInfoPage {
     try {
       const defaultDisplay = display.getDefaultDisplaySync();
 
-      this.width_info = defaultDisplay.width;
-      this.height_info = defaultDisplay.height;
+      this.widthInfo = defaultDisplay.width;
+      this.heightInfo = defaultDisplay.height;
 
-      this.refresh_rate_info = (defaultDisplay.refreshRate ?? 0);
+      this.refreshRateInfo = (defaultDisplay.refreshRate ?? 0);
 
-      this.density_info = (defaultDisplay.densityDPI ?? defaultDisplay.densityDPI ?? 0);
+      this.densityInfo = (defaultDisplay.densityDPI ?? defaultDisplay.densityDPI ?? 0);
 
       const o = defaultDisplay.orientation;
       switch (o) {
         case display.Orientation.PORTRAIT:
-          this.orientation_info = 'PORTRAIT';
+          this.orientationInfo = 'PORTRAIT';
           break;
         case display.Orientation.LANDSCAPE:
-          this.orientation_info = 'LANDSCAPE';
+          this.orientationInfo = 'LANDSCAPE';
           break;
         case display.Orientation.PORTRAIT_INVERTED:
-          this.orientation_info = 'PORTRAIT_INVERTED';
+          this.orientationInfo = 'PORTRAIT_INVERTED';
           break;
         case display.Orientation.LANDSCAPE_INVERTED:
-          this.orientation_info = 'LANDSCAPE_INVERTED';
+          this.orientationInfo = 'LANDSCAPE_INVERTED';
           break;
         default:
-          this.orientation_info = `UNKNOWN (${o})`;
+          this.orientationInfo = `UNKNOWN (${o})`;
       }
 
       this.errorMsg = '';
@@ -64,9 +64,9 @@ struct DisplayInfoPage {
       Column({ space: 4 }) {
         Text(`Width: ${this.width} px`)
         Text(`Height: ${this.height} px`)
-        Text(`Orientation: ${this.orientation_info}`)
-        Text(`Refresh rate: ${this.refresh_rate_info} Hz`)
-        Text(`Density: ${this.density_info} dpi`)
+        Text(`Orientation: ${this.orientationInfo}`)
+        Text(`Refresh rate: ${this.refreshRateInfo} Hz`)
+        Text(`Density: ${this.densityInfo} dpi`)
       }
 
       if (this.errorMsg !== '') {
